@@ -1,12 +1,11 @@
-import { Link } from "gatsby"
+import { graphql, Link } from "gatsby"
 import React from "react"
 import Layout from "../components/Layout"
 import { header, btn } from "../styles/home.module.css"
-// import * as styles from '../styles/home.module.css'
-// => 최상위 컴포넌트에 한번만 적용시키면 된다.
+import { StaticImage } from "gatsby-plugin-image"
 
-export default function Home() {
-  // const { title, description } = data.site.siteMetadata
+export default function Home({ data }) {
+  // console.log(data)
   return (
     <Layout>
       <section className={header}>
@@ -18,19 +17,27 @@ export default function Home() {
             My Portfolio Project
           </Link>
         </div>
-        <img src="/banner.png" alt="banner" style={{ maxWidth: "100%" }} />
+        {/* <Banner fluid={data.file.childImageSharp.fluid} /> */}
+        <StaticImage
+          src="../images/banner.png"
+          alt="Banner"
+          placeholder="blurred"
+        />
       </section>
     </Layout>
   )
 }
 
-// graphql에서 가져온 아래 데이터는 컴포넌트의 Prop으로 들어간다.
+// static 이미지 같은 경우, doc에 따르면 graphql에서 data를 가져올 필요 없이
+// 바로 파일 경로를 통해서 가져온다.
+
 // export const query = graphql`
-//   query SiteInfo {
-//     site {
-//       siteMetadata {
-//         description
-//         title
+//   query Banner {
+//     file(relativePath: { eq: "banner.png" }) {
+//       childImageSharp {
+//         fluid {
+//           ...GatsbyImageSharpFluid
+//         }
 //       }
 //     }
 //   }
